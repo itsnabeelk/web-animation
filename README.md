@@ -1,2 +1,2 @@
-# GSAP-TEXT
+# WEB-ANIM
 text and scroll animation

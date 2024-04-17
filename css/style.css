@@ -1,0 +1,156 @@
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+body {
+    margin: 0;
+    padding:0;
+    font-family: 'Inter', sans-serif;
+    cursor: none;
+}
+/* cursor-start */
+.cursor {
+    position: fixed;
+    width: 40px;
+    height: 40px;
+    margin-left: -20px;
+    margin-top: -20px;
+    border-radius: 50%;
+    border: 2px solid #16a085;
+    transition: transform .3s ease;
+    transform-origin: center center;
+    pointer-events: none;
+    z-index: 1000;
+}
+
+.grow,
+.grow-small {
+    transform: scale(10);
+    background: #16a085 !important;
+    mix-blend-mode: screen;
+    border: none;
+}
+
+.grow-small {
+    transform: scale(2.5);
+}
+
+.grow2,
+.grow-big {
+    transform: scale(10);
+    background: blueviolet;
+    mix-blend-mode: saturation;
+    border: none;
+}
+
+.grow-big {
+    transform: scale(2.5);
+}
+
+/* cusror-end */
+
+/* nav-inner */
+
+nav {
+    background: #000;
+    text-align: center;
+    padding: 100px 0;
+}
+
+nav.menu-effect4 a {
+    display: block;
+    margin-bottom: 3em;
+    font-family: 'Poppins', sans-serif;
+    text-decoration: none;
+    outline: none;
+}
+
+nav.menu-effect4 a .name {
+    position: relative;
+    display: inline-block;
+    padding: 0 0.3em;
+    font-size: 1.6em;
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1.3;
+    text-transform: uppercase;
+    overflow: hidden;
+    transition: color .1s .25s;
+}
+
+nav.menu-effect4 a:hover .name {
+    color: #ea2027;
+}
+
+nav.menu-effect4 a .name::before {
+    content: '';
+    position: absolute;
+    z-index: 1;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: #ea2027;
+    transform: translateY(100%);
+    transition: transform .5s cubic-bezier(0.6, 0, 0.4, 1);
+}
+
+nav.menu-effect4 a:hover .name::before {
+    transform: translateY(-100%);
+}
+
+nav.menu-effect4 a .label {
+    display: block;
+    font-size: 1.2em;
+    line-height: 1;
+    color: #ffffff;
+    margin: 0 0.5em;
+}
+
+.youtube-link {
+    position: fixed;
+    left: 20px;
+    bottom: 20px;
+    color: #fff;
+    text-decoration: none;
+    font-size: 12px;
+}
+
+/* nav-inner-close */
+
+section {
+    height: 100vh;
+    text-align: left;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.section2 {
+    background: #000;
+    color: #fff;
+}
+
+.text-container {
+    position: absolute;
+    height: 200px;
+    padding: 0 clamp(4rem, 12vw, 20rem);
+    display: grid;
+    place-content: center;
+
+    p {
+        font-size: clamp(1rem, 2.5vw, 2rem);
+    }
+}
+
+h1 a {
+    font-size: clamp(1rem, 2.5vw, 2rem);
+    color: #000;
+    text-decoration: none;
+}
+
+
+

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/style.css">
+  <title>Text Reveal</title>
+</head>
+<div class="cursor"></div>
+<body>
+
+
+  <nav class="menu-effect4">
+    <a href="#">
+      <span class="name">Artists</span>
+      <span class="label">Explore the portfolios</span>
+    </a>
+    <a href="#">
+      <span class="name">Exhibitions</span>
+      <span class="label">Discover fascinating stories</span>
+    </a>
+    <a href="#">
+      <span class="name">Schedule</span>
+      <span class="label">View our event calendar</span>
+    </a>
+    <a href="#">
+      <span class="name">Mission</span>
+      <span class="label">Read our mission statement</span>
+    </a>
+    <a href="#">
+      <span class="name">Contact</span>
+      <span class="label">Get in touch and find us</span>
+    </a>
+  </nav>
+  
+
+  <section>
+    <h1 class="text-down cursor-scale big"><a href="">Scroll down for More data</a></h1>
+  </section>
+  <section class="section2">
+    <div class="text-container">
+      <p class="reveal-text-type cursor-scale small">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi
+        praesentium ullam aliquam nulla sint ducimus iure tenetur inventore fugiat odio! In nemo deleniti sint possimus
+        quae unde at pariatur quisquam.</p>
+    </div>
+  </section>
+</body>
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/split-type"></script>
+<script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.19/bundled/lenis.min.js"></script>
+
+
+<!-- mouse-script-start -->
+<script>
+  var cursor = document.querySelector('.cursor'),
+    cursorScale = document.querySelectorAll('.cursor-scale'),
+    mouseX = 0,
+    mouseY = 0;
+
+  gsap.to({}, 0.016, {
+    repeat: -1,
+    onRepeat: function () {
+      gsap.set(cursor, {
+        css: {
+          left: mouseX,
+          top: mouseY
+        }
+      });
+    }
+  });
+
+  window.addEventListener("mousemove", function (e) {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+  });
+
+  cursorScale.forEach(link => {
+    link.addEventListener('mouseleave', () => {
+      cursor.classList.remove('grow');
+      cursor.classList.remove('grow-small');
+      cursor.classList.remove('grow-big');
+    });
+    link.addEventListener('mousemove', () => {
+      cursor.classList.add('grow');
+      if (link.classList.contains('small')) {
+        cursor.classList.remove('grow');
+        cursor.classList.add('grow-small');
+      }
+      if (link.classList.contains('big')) {
+        cursor.classList.remove('grow');
+        cursor.classList.add('grow-big');
+      }
+    });
+  });
+</script>
+<!-- mouse-script-end -->
+
+<!-- text-animation-start -->
+<script>
+  // gsap-trigger-config
+  gsap.registerPlugin(ScrollTrigger);
+
+  // text-reveal
+  const splitTypes = document.querySelectorAll('.reveal-text-type');
+  splitTypes.forEach((char, i) => {
+    const text = new SplitType(char, { types: 'chars' });
+    gsap.from(text.chars, {
+      scaleY: 0,
+      y: -40,
+      transformOrigin: 'top',
+      stagger: 0.05,
+      duration: 10,
+      scrollTrigger: {
+        trigger: char,
+        start: "top 90%",
+        end: "top 70%",
+        scrub: true,
+        markers: false,
+        toggleActions: 'play play reverse reverse'
+      }
+    });
+  });
+  // text-reveal-end
+
+  // smooth scrolling
+  const lenis = new Lenis();
+
+  lenis.on('scroll', (e) => {
+    console.log(e);
+  });
+
+  function raf(time) {
+    lenis.raf(time);
+    requestAnimationFrame(raf);
+  }
+
+  requestAnimationFrame(raf);
+  // smooth scrolling End
+
+  // text-down-anim
+  gsap.from(".text-down", {
+    duration: 1,
+    scrollTrigger: {
+      trigger: ".text-down",
+      start: "top center",
+      toggleActions: "play reverse play play",
+    },
+    y: -300,
+    stagger: 0.3,
+  });
+  // text-down-end
+</script>
+
+<script>
+  var labels = $("nav .label");
+
+labels.each(function() {
+	var label = $(this),
+		 arr = label.text().split(""),
+		html = "";
+	for (var i = 0; i < arr.length; i++) {
+		if (arr[i] !== " ") {
+			html += '<div style="position:relative;display:inline-block;">' + arr[i] + '</div>';
+		} else {
+			html += arr[i];
+		}
+	}
+	label.html(html);
+});
+
+$("nav a").each(function() {
+	var tl = gsap.timeline({ paused: true });
+	var chars = $(this).find("div");
+	tl.from(chars, {
+		duration: .2,
+		color: "#555555",
+		y: 6,
+		scale: .8,
+		stagger: {
+			from: "random",
+			ease: "Power3.inOut",
+			amount: 0.3
+		}
+	});
+
+	$(this).on("mouseenter", function() {
+		tl.restart();
+	});
+	$(this).on("mouseleave", function() {
+		tl.reverse();
+	});
+})
+</script>
+
+
+
+</html>
